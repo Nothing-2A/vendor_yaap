@@ -20,6 +20,7 @@ YAAP_BUILDTYPE ?= HOMEMADE
 YAAP_BUILD_VERSION := $(PLATFORM_VERSION)
 YAAP_VERSION := $(YAAP_BUILD_VERSION)-$(YAAP_BUILDTYPE)-$(TARGET_PRODUCT_SHORT)-$(BUILD_DATE)
 ROM_FINGERPRINT := YAAP/$(PLATFORM_VERSION)/$(TARGET_PRODUCT_SHORT)/$(shell date -u +%H%M)
+PERF_ANIM_OVERRIDE ?= false
 
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
   ro.yaap.build.version=$(YAAP_BUILD_VERSION) \
@@ -42,3 +43,7 @@ ifneq (,$(wildcard vendor/yaap/signing/keys/otakey.x509.pem))
 PRODUCT_OTA_PUBLIC_KEYS := vendor/yaap/signing/keys/otakey.x509.pem
 endif
 endif
+
+PRODUCT_PRODUCT_PROPERTIES += \
+    persist.sys.default_scaling_gov=$(PERF_DEFAULT_GOV) \
+    persist.sys.activity_anim_perf_override=$(PERF_ANIM_OVERRIDE)
